@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "bivariate_choropleth"
+  site-url: "https://Parkes2.github.io/bivariate_choropleth"
+  description: "Bivariate Choropleth plotting library"
+  repo-branch: main
+  repo-url: "https://github.com/Parkes2/bivariate_choropleth"
