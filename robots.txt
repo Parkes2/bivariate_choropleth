@@ -1,0 +1,1 @@
+Sitemap: https://Parkes2.github.io/bivariate_choropleth/sitemap.xml
