@@ -1,0 +1,7 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - 01_grid_palette.ipynb
+      - 02_shapefiles.ipynb
+      - 03_plotting.ipynb
