@@ -1,0 +1,92 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "bivariate_choropleth",
+    "section": "",
+    "text": "Install latest from the GitHub repository:\n$ pip install git+https://github.com/Parkes2/bivariate_choropleth.git\nor from conda\n$ conda install -c Parkes2 bivariate_choropleth\nor from pypi\n$ pip install bivariate-choropleth\n\n\n\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "bivariate_choropleth"
+    ]
+  },
+  {
+    "objectID": "index.html#usage",
+    "href": "index.html#usage",
+    "title": "bivariate_choropleth",
+    "section": "",
+    "text": "Install latest from the GitHub repository:\n$ pip install git+https://github.com/Parkes2/bivariate_choropleth.git\nor from conda\n$ conda install -c Parkes2 bivariate_choropleth\nor from pypi\n$ pip install bivariate-choropleth\n\n\n\nDocumentation can be found hosted on this GitHub repository’s pages. Additionally you can find package manager specific guidelines on conda and pypi respectively.",
+    "crumbs": [
+      "bivariate_choropleth"
+    ]
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "bivariate_choropleth",
+    "section": "How to use",
+    "text": "How to use\n\nChoose a palette for your legend\ndefault GridPalette is a 3x3 grid with the blues2reds palette.\nUse GridPalette.from_dropdown to get an interactive widget with the premade palettes. See nbs/01_grid_palette for more options for selecting grid palettes\n\ngp = BivariateGridPalette.from_dropdown()",
+    "crumbs": [
+      "bivariate_choropleth"
+    ]
+  },
+  {
+    "objectID": "index.html#an-example-using-a-geodatasets-dataset",
+    "href": "index.html#an-example-using-a-geodatasets-dataset",
+    "title": "bivariate_choropleth",
+    "section": "An example using a geodatasets dataset",
+    "text": "An example using a geodatasets dataset\n\nimport geodatasets\n\n\ngeodatasets.data.geoda.atlanta.url\n\n'https://geodacenter.github.io/data-and-lab//data/atlanta_hom.zip'\n\n\n\nbivariate_choropleth.shapefiles has some functions for using\n\nfrom bivariate_choropleth.shapefiles import *\n\nuse download_and_unzip to download from the url above. The directory and filename are entered as separate arguments\n\ndownload_and_unzip(r\"https://geodacenter.github.io/data-and-lab//data/\",'atlanta_hom.zip')\n\natlanta_hom.zip already exists, do you want to overwrite y/n? n\n\n\ncalling load_gdf() with no arguments will show a list of folders in the location of SHAPE_FILES_PATH (User/Documents/SHP_FILES)\n\nload_gdf()\n\nAvailable shapefiles are:  atlanta_hom atlanta_hom LSOA_2021_BOUNDARIES_V4 ca_state ca_counties ca_places\n\n\n\natlanta = load_gdf('atlanta_hom')\n\n\nfrom bivariate_choropleth.plotting import *\n\ncall plot_bivariate_choropleth(gdf, x_col_name, y_col_name) to plot a bivariate choropleth\n\nax, cax = plot_bivariate_choropleth(atlanta, x='PE87', y='HR8995')\n\n\n\n\n\n\n\n\nthe grid_size can be changed if you want more ranks in your data.\nax, cax is returned so that the plot can be manipulated\n\nax, cax = plot_bivariate_choropleth(atlanta, x='PE87', y='HR8995', grid_size=5, palette_name='purple2gold')\nax.set_title('Police Expenditure and Homicide Rates in Atlanta Counties')\nax.set_axis_off()\ncax.set_xlabel('Police Expenditure 1987', fontsize=5)\ncax.set_ylabel('Homicide Rate 89-95', fontsize=5);",
+    "crumbs": [
+      "bivariate_choropleth"
+    ]
+  },
+  {
+    "objectID": "shapefiles.html",
+    "href": "shapefiles.html",
+    "title": "Shapefiles",
+    "section": "",
+    "text": "point to a default location (Users/Documents/GEOG_FILES) if its empty, create it and download a simple geography file e.g. california\nDo we want to create a registry?\n\nsource\n\ndownload_and_unzip\n\n download_and_unzip (url, filename,\n                     download_path=Path('/home/runner/Documents/SHP_FILES'\n                     ))\n\n\nsource\n\n\ncheck_shapefiles_path\n\n check_shapefiles_path (shp_path=Path('/home/runner/Documents/SHP_FILES'))\n\nLooks for a Path User/Documents/SHP_FILES. Does it contain Shapefiles\n\nsource\n\n\nload_gdf\n\n load_gdf (foldername=None, plot=False,\n           shp_path=Path('/home/runner/Documents/SHP_FILES'))\n\nLoad shapefiles into gdf\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nfoldername\nNoneType\nNone\nIf no argument is entered, function will print out the list of shp files in the shape files directory\n\n\nplot\nbool\nFalse\n\n\n\nshp_path\nPosixPath\n/home/runner/Documents/SHP_FILES\n\n\n\n\n\nca = load_gdf('ca_counties', plot=True)\n\n\n\n\n\n\n\n\n\nload_gdf()\n\nAvailable shapefiles are:  atlanta_hom atlanta_hom LSOA_2021_BOUNDARIES_V4 ca_state ca_counties ca_places",
+    "crumbs": [
+      "Shapefiles"
+    ]
+  },
+  {
+    "objectID": "plotting.html",
+    "href": "plotting.html",
+    "title": "Plotting",
+    "section": "",
+    "text": "source",
+    "crumbs": [
+      "Plotting"
+    ]
+  },
+  {
+    "objectID": "plotting.html#an-example",
+    "href": "plotting.html#an-example",
+    "title": "Plotting",
+    "section": "An example",
+    "text": "An example\n\nfrom bivariate_choropleth.shapefiles import load_gdf\n\nload the geodataframe from default path\n\nca = load_gdf('ca_counties')\nca = ca.to_crs(epsg=4326)\n\nca.head()\n\n\n\n\n\n\n\n\nSTATEFP\nCOUNTYFP\nCOUNTYNS\nGEOID\nNAME\nNAMELSAD\nLSAD\nCLASSFP\nMTFCC\nCSAFP\nCBSAFP\nMETDIVFP\nFUNCSTAT\nALAND\nAWATER\nINTPTLAT\nINTPTLON\nShape_Leng\nShape_Area\ngeometry\n\n\n\n\n0\n06\n091\n00277310\n06091\nSierra\nSierra County\n06\nH1\nG4020\nNone\nNone\nNone\nA\n2.468695e+09\n2.329911e+07\n+39.5769252\n-120.5219926\n375602.758281\n4.200450e+09\nPOLYGON ((-120.6556 39.69357, -120.65554 39.69...\n\n\n1\n06\n067\n00277298\n06067\nSacramento\nSacramento County\n06\nH1\nG4020\n472\n40900\nNone\nA\n2.499984e+09\n7.542543e+07\n+38.4500161\n-121.3404408\n406584.174167\n4.205516e+09\nPOLYGON ((-121.18858 38.71431, -121.18732 38.7...\n\n\n2\n06\n083\n00277306\n06083\nSanta Barbara\nSanta Barbara County\n06\nH1\nG4020\nNone\n42200\nNone\nA\n7.084063e+09\n2.729752e+09\n+34.5370572\n-120.0399729\n891686.747247\n1.449841e+10\nMULTIPOLYGON (((-120.7343 34.90069, -120.73431...\n\n\n3\n06\n009\n01675885\n06009\nCalaveras\nCalaveras County\n06\nH1\nG4020\nNone\nNone\nNone\nA\n2.641785e+09\n4.384187e+07\n+38.1838996\n-120.5614415\n367005.879680\n4.356213e+09\nPOLYGON ((-120.63095 38.34111, -120.63058 38.3...\n\n\n4\n06\n111\n00277320\n06111\nVentura\nVentura County\n06\nH1\nG4020\n348\n37100\nNone\nA\n4.771988e+09\n9.473454e+08\n+34.3587415\n-119.1331432\n527772.242190\n8.413293e+09\nMULTIPOLYGON (((-119.32923 34.22784, -119.3292...\n\n\n\n\n\n\n\n\nfrom sklearn.datasets import fetch_california_housing\nimport shapely\nfrom shapely import Point\n\nprocess the dataset. Get house prices from the Sklearn dataset. Create a geometry column (Point) with shapely. Perform a spatial join\n\nhousing = fetch_california_housing(as_frame=True)\nhousing_data = housing.data.join(housing.target)\nhousing_data['geometry'] = housing_data.apply(lambda x: Point(x.Longitude, x.Latitude), axis=1)\n\nhousing_data = gpd.GeoDataFrame(housing_data, geometry='geometry', crs=\"EPSG:4326\") \n\nhousing_data = gpd.sjoin(housing_data, ca, how='left', predicate='within')\n\nget the average per county (index to join on to the spatial data)\n\ncounty_level_data = housing_data.groupby('COUNTYNS')[['Population', 'MedHouseVal']].mean()\n\nca_geo = ca.set_index('COUNTYNS')[['geometry']]\ncounty_level_data = ca_geo.join(county_level_data)\n\n\nax, cax = plot_bivariate_choropleth(county_level_data, y='MedHouseVal', x='Population', grid_palette=gp)",
+    "crumbs": [
+      "Plotting"
+    ]
+  },
+  {
+    "objectID": "grid_palette.html",
+    "href": "grid_palette.html",
+    "title": "GridPalette",
+    "section": "",
+    "text": "source",
+    "crumbs": [
+      "GridPalette"
+    ]
+  },
+  {
+    "objectID": "grid_palette.html#generating-palettes",
+    "href": "grid_palette.html#generating-palettes",
+    "title": "GridPalette",
+    "section": "Generating Palettes",
+    "text": "Generating Palettes\n\nsource\n\nfrom_list\n\n from_list (upper_left_color, lower_right_color=None,\n            upper_right_color=None, palette_name='from_list', grid_size=3)\n\nGenerate a BivariateGridPalette from inputted corner colors\n\ngp = BivariateGridPalette.from_list('#9972af','#c8b35a','#804d36')\n\nassert len(gp.color_list) == 9\ngp = BivariateGridPalette.from_list(['#9972af','#c8b35a','#804d36'], grid_size=4)\nassert len(gp.color_list) == 16\n\n\nsource\n\n\nfrom_dropdown\n\n from_dropdown ()\n\nSelect BivariateGridPalette from dropdown list\n\nsource\n\n\nfrom_picker\n\n from_picker (mode='darken')\n\nBivariateGridPalette from a single color picker\n\ngp = from_picker()\n\n\n\n\n\nsource\n\n\nfrom_pickers_3\n\n from_pickers_3 ()\n\nBivariateGridPalette from three color pickers\n\ngp = from_pickers_3()",
+    "crumbs": [
+      "GridPalette"
+    ]
+  }
+]
